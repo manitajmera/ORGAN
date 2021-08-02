@@ -18,8 +18,8 @@ from copy import deepcopy
 from math import exp, log
 # Disables logs for Smiles conversion
 rdBase.DisableLog('rdApp.error')
-#====== load data
 
+#====== load data
 
 def readNPModel(filename='NP_score.pkl.gz'):
     print("mol_metrics: reading NP model ...")
@@ -607,6 +607,24 @@ def logP(smile, train_smiles=None):
         logp = Crippen.MolLogP(Chem.MolFromSmiles(smile))
         val = remap(logp, low_logp, high_logp)
         val = np.clip(val, 0.0, 1.0)
+        return val
+    except ValueError:
+        return 0.0
+   
+#======= vina
+
+def batch_vina(smiles, train_smiles=None):
+    vals = [vina(s, train_smiles,my_predictor,get_fp) if verify_sequence(s) else 0 for s in smiles]
+    return vals
+
+
+def vina(smile, train_smiles=None,predictor,get_features):
+    try:
+        mol, prop, nan_smiles = predictor.predict([smiles], get_features=get_features)
+        if len(nan_smiles) == 1:
+            return 0.0
+        val = remap(prop[0], -4, -25)
+        val=np.clip(val, 0.0, 1.0)
         return val
     except ValueError:
         return 0.0
