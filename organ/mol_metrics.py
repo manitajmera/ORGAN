@@ -10,6 +10,7 @@ import gzip
 import math
 import random
 from rdkit import rdBase
+from sklearn.externals import joblib
 from rdkit import DataStructs
 from rdkit.Chem import AllChem as Chem
 from rdkit.Chem import Crippen, MolFromSmiles, MolToSmiles
@@ -21,7 +22,7 @@ rdBase.DisableLog('rdApp.error')
 
 #====== load data
 filename='/content/drive/My Drive/vinascore.pkl'
-predictor = pickle.load(open(filename, 'rb'))
+predictor=joblib.load(filename)
 def readNPModel(filename='NP_score.pkl.gz'):
     print("mol_metrics: reading NP model ...")
     start = time.time()
