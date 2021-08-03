@@ -22,6 +22,7 @@ rdBase.DisableLog('rdApp.error')
 
 #====== load data
 import predictor 
+from utils import get_fp
 filename='/content/drive/My Drive/vinascore.pkl'
 vina_predictor=joblib.load(filename)
 def readNPModel(filename='NP_score.pkl.gz'):
