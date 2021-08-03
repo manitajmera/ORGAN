@@ -22,7 +22,7 @@ rdBase.DisableLog('rdApp.error')
 
 #====== load data
 filename='/content/drive/My Drive/vinascore.pkl'
-predictor=joblib.load(filename)
+vina_predictor=joblib.load(filename)
 def readNPModel(filename='NP_score.pkl.gz'):
     print("mol_metrics: reading NP model ...")
     start = time.time()
@@ -615,13 +615,13 @@ def logP(smile, train_smiles=None):
    
 #======= vina
 def batch_vina(smiles, train_smiles=None):
-    vals = [vina(s, train_smiles,my_predictor,get_fp) if verify_sequence(s) else 0 for s in smiles]
+    vals = [vina(s, train_smiles) if verify_sequence(s) else 0 for s in smiles]
     return vals
 
 
 def vina(smile, train_smiles=None):
     try:
-        mol, prop, nan_smiles = predictor.predict([smiles], get_features=get_fp)
+        mol, prop, nan_smiles = vina_predictor.predict([smiles], get_features=get_fp)
         if len(nan_smiles) == 1:
             return 0.0
         val = remap(prop[0], -4, -25)
