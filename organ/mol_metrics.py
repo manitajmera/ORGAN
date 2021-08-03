@@ -20,7 +20,8 @@ from math import exp, log
 rdBase.DisableLog('rdApp.error')
 
 #====== load data
-
+filenmae='/content/drive/My Drive/finalized_model.sav'
+predictor = pickle.load(open(filename, 'rb'))
 def readNPModel(filename='NP_score.pkl.gz'):
     print("mol_metrics: reading NP model ...")
     start = time.time()
@@ -612,15 +613,14 @@ def logP(smile, train_smiles=None):
         return 0.0
    
 #======= vina
-
 def batch_vina(smiles, train_smiles=None):
     vals = [vina(s, train_smiles,my_predictor,get_fp) if verify_sequence(s) else 0 for s in smiles]
     return vals
 
 
-def vina(smile, train_smiles=None,predictor,get_features):
+def vina(smile, train_smiles=None):
     try:
-        mol, prop, nan_smiles = predictor.predict([smiles], get_features=get_features)
+        mol, prop, nan_smiles = predictor.predict([smiles], get_features=get_fp)
         if len(nan_smiles) == 1:
             return 0.0
         val = remap(prop[0], -4, -25)
