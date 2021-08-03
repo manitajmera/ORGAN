@@ -867,4 +867,5 @@ def get_metrics():
     metrics['naturalness'] = batch_NPLikeliness
     metrics['synthesizability'] = batch_SA
     metrics['druglikeliness'] = batch_druglikeliness
+    metrics['vina'] = batch_vina
     return metrics
