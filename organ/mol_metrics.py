@@ -622,10 +622,10 @@ def batch_vina(smiles, train_smiles=None):
 
 def vina(smile, train_smiles=None):
     try:
-        mol, prop, nan_smiles = vina_predictor.predict([smiles], get_features=get_fp)
+        mol, prop, nan_smiles = vina_predictor.predict([smile], get_features=get_fp)
         if len(nan_smiles) == 1:
             return 0.0
-        val = remap(prop[0], -4, -25)
+        val = remap(prop[0], -4, -12)
         val=np.clip(val, 0.0, 1.0)
         return val
     except ValueError:
