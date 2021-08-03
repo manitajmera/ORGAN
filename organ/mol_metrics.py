@@ -20,7 +20,7 @@ from math import exp, log
 rdBase.DisableLog('rdApp.error')
 
 #====== load data
-filenmae='/content/drive/My Drive/finalized_model.sav'
+filename='/content/drive/My Drive/finalized_model.sav'
 predictor = pickle.load(open(filename, 'rb'))
 def readNPModel(filename='NP_score.pkl.gz'):
     print("mol_metrics: reading NP model ...")
