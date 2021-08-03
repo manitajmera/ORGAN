@@ -853,6 +853,7 @@ def metrics_loading():
     loadings['naturalness'] = lambda *args: None
     loadings['synthesizability'] = lambda *args: None
     loadings['druglikeliness'] = lambda *args: None
+    loadings['vina'] = lambda *args: None
     return loadings
 
 
